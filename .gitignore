@@ -1,0 +1,6 @@
+__pycache__/
+scratch.org
+.envrc
+.direnv
+flake.lock
+flake.nix
