@@ -1,6 +1,6 @@
 __pycache__/
 scratch.org
 .envrc
-.direnv
+.direnv/
 flake.lock
 flake.nix
