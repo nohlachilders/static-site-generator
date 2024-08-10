@@ -107,5 +107,14 @@ def text_to_textnode(text):
 
     return text_nodes
 
+def markdown_to_blocks(markdown:str) -> list:
+    blocks = markdown.split("\n\n")
 
+    blocks = [i for i in blocks if i != ""]
+    blocks = [i.strip() for i in blocks]
 
+    return blocks
+
+def block_to_block_type(block) -> str:
+    # test beginning of strings. how? gotta regex fug
+    return

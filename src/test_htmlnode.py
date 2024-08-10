@@ -200,6 +200,24 @@ class TestTextToTextNodes(unittest.TestCase):
                 ]
         self.assertEqual(text_to_textnode(text), result)
 
+class TestMarkdownToBlocks(unittest.TestCase):
+    def tests(self):
+        md = """# heading
+
+# another heading
+
+paragraph.its a paragraph. paragraph.
+another paragraph.its a paragraph. paragraph.
+
+* list
+* list item two
+* list item three
+"""
+        print(markdown_to_blocks(md))
+        self.assertEqual(markdown_to_blocks(md), ['# heading', '# another heading',
+                                                  'paragraph.its a paragraph. paragraph.\nanother paragraph.its a paragraph. paragraph.', 
+                                                  '* list\n* list item two\n* list item three'])
+
 
 if __name__ == "__main__":
     unittest.main()
