@@ -116,5 +116,33 @@ def markdown_to_blocks(markdown:str) -> list:
     return blocks
 
 def block_to_block_type(block) -> str:
-    # test beginning of strings. how? gotta regex fug
-    return
+    if re.search("^#{1,6} ", block):
+        return "header"
+
+    if re.search("^(```)[\s\S]*(```)$", block):
+        return "code"
+
+    quote = True
+    for line in block.splitlines():
+        if not re.search("^>", line):
+            quote = False
+    if quote:
+        return "quote"
+
+    unordered_list = True
+    for line in block.splitlines():
+        if not re.search("^[*-] ", line):
+            unordered_list = False
+    if unordered_list:
+        return "unordered_list"
+
+    ordered_list = True
+    list_count = 1
+    for line in block.splitlines():
+        if not re.search(f"^{list_count}\. ", line):
+            ordered_list = False
+        list_count += 1
+    if ordered_list:
+        return "ordered_list"
+    
+    return "paragraph"
