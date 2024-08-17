@@ -3,6 +3,7 @@ from htmlnode import *
 import re
 
 def text_node_to_html_node(text_node: TextNode) -> LeafNode:
+    '''takes in a single TextNode and returns a single HTML leaf node'''
     match text_node.text_type:
         case "text":
             return LeafNode(None, text_node.text)
@@ -20,6 +21,7 @@ def text_node_to_html_node(text_node: TextNode) -> LeafNode:
             raise ValueError("Invalid format for text node! Is the tag a valid tag?")
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type) -> list:
+    '''split a list of TextNodes given a delimiter and the type it denotes as arguments'''
     new_nodes = []
     for i in old_nodes:
         if i.text_type != "text":
@@ -38,14 +40,17 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type) -> list:
     return new_nodes
 
 def extract_markdown_images(text):
+    '''extract and return the markdown image links and alt text from a string. helper function'''
     textlist = re.findall(r"!\[(.*?)\]\((.*?)\)" ,text)
     return textlist
 
 def extract_markdown_links(text):
+    '''extract and return the markdown links and alt text from a string. helper function'''
     textlist = re.findall(r"\[(.*?)\]\((.*?)\)" ,text)
     return textlist
 
 def split_nodes_images(old_nodes) -> list:
+    '''process a list of TextNodes to extract out markdown images links'''
     new_nodes = []
 
     for i in old_nodes:
@@ -69,6 +74,7 @@ def split_nodes_images(old_nodes) -> list:
     return new_nodes
 
 def split_nodes_links(old_nodes) -> list:
+    '''process a list of TextNodes to extract out markdown links'''
     new_nodes = []
 
     for i in old_nodes:
@@ -92,6 +98,7 @@ def split_nodes_links(old_nodes) -> list:
     return new_nodes
 
 def text_to_textnode(text):
+    '''converts a string of raw markdown into TextNodes'''
     text_nodes = [TextNode(text, "text")]
     types = {
             "bold":"**",
@@ -108,6 +115,7 @@ def text_to_textnode(text):
     return text_nodes
 
 def markdown_to_blocks(markdown:str) -> list:
+    '''takes raw markdown and splits them into a list of block strings'''
     blocks = markdown.split("\n\n")
 
     blocks = [i for i in blocks if i != ""]
@@ -116,6 +124,7 @@ def markdown_to_blocks(markdown:str) -> list:
     return blocks
 
 def block_to_block_type(block) -> str:
+    '''takes a block from markdown_to_blocks and returns that blocks text type'''
     if re.search("^#{1,6} ", block):
         return "header"
 
